@@ -72,7 +72,6 @@ public class ArticleDetailFragment extends Fragment implements
     private int mMutedColor = 0xFF333333;
     private ObservableScrollView mScrollView;
     private CoordinatorLayout mCoordinatorLayout;
-    //private DrawInsetsFrameLayout mDrawInsetsFrameLayout;
     private ColorDrawable mStatusBarColorDrawable;
 
     private int mTopInset;
@@ -261,7 +260,7 @@ public class ArticleDetailFragment extends Fragment implements
                     .with(mPhotoView.getContext())
                     .asBitmap()
                     .load(mCursor.getString(ArticleLoader.Query.PHOTO_URL))
-                    .apply(new RequestOptions().placeholder(R.drawable.placeholder).error(R.drawable.placeholder).diskCacheStrategy(DiskCacheStrategy.ALL).dontAnimate().dontTransform())
+                    .apply(new RequestOptions().placeholder(R.drawable.placeholder).error(R.drawable.placeholder).diskCacheStrategy(DiskCacheStrategy.ALL).override(mPhotoView.getLayoutParams().width, mPhotoView.getLayoutParams().height))
                     .into(new SimpleTarget<Bitmap>() {
                         @Override
                         public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
@@ -274,27 +273,6 @@ public class ArticleDetailFragment extends Fragment implements
                             updateStatusBar();
                         }
                     });
-            /*ImageLoaderHelper.getInstance(getActivity()).getImageLoader()
-                    .get(mCursor.getString(ArticleLoader.Query.PHOTO_URL), new ImageLoader.ImageListener() {
-                        @Override
-                        public void onResponse(ImageLoader.ImageContainer imageContainer, boolean b) {
-                            Bitmap bitmap = imageContainer.getBitmap();
-                            if (bitmap != null) {
-                                Palette p = Palette.generate(bitmap, 12);
-                                mMutedColor = p.getDarkMutedColor(0xFF333333);
-
-                                //mPhotoView.setImageBitmap(imageContainer.getBitmap());
-                                mRootView.findViewById(R.id.meta_bar)
-                                        .setBackgroundColor(mMutedColor);
-                                updateStatusBar();
-                            }
-                        }
-
-                        @Override
-                        public void onErrorResponse(VolleyError volleyError) {
-
-                        }
-                    });*/
 
         } else {
             mRootView.setVisibility(View.GONE);

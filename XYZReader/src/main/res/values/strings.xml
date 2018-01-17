@@ -9,5 +9,6 @@
 
     <string name="up">Up</string>
     <string name="transition_photo">transition_photo</string>
+    <string name="internet_check">Please check your Internet connection</string>
 
 </resources>

@@ -27,6 +27,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -76,8 +77,11 @@ public class ArticleListActivity extends AppCompatActivity implements
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        getLoaderManager().initLoader(0, null, this);
 
+        getLoaderManager().initLoader(0, null, this);
+        if(!isOnline()) {
+            Toast.makeText(this,getResources().getText(R.string.internet_check),Toast.LENGTH_SHORT).show();
+        }
         if (savedInstanceState == null) {
             refresh();
         }
